@@ -1,8 +1,10 @@
 import numpy as np
 import shift_XY as sh
 import matplotlib.pyplot as plt
+from PIL import Image
 import os
 from shutil import copyfile
+import time
 
 target_dir = "/media/curie/MOUSELIGHT/VCN_bin2_tiffs"
 
@@ -20,10 +22,15 @@ tifs.sort()
 
 for n in range(1154,len(tifs)):
     if(n>1154):
-       print("shift")
-       im = plt.imread("/media/curie/MOUSELIGHT/VCN_bin2_tiffs/"+tifs[n])
+       print("shifting...",tifs[n])
+       time_start=time.time()
+       im = Image.open("/media/curie/MOUSELIGHT/VCN_bin2_tiffs/"+tifs[n])
+       im= np.asarray(im)
        im = sh.shift(im,"L",98,"D",94)
-       plt.imsave("/media/curie/MOUSELIGHT/VCN_bin2_tiffs_shifted/"+tifs[n],im)
+       im=Image.fromarray(im)
+       im.save("/media/curie/MOUSELIGHT/VCN_bin2_tiffs_shifted/"+tifs[n],)
+       time_run = time.time()-time_start
+       print("shifted in: ",int(time_run)," seconds")
 
     else:
         copyfile("/media/curie/MOUSELIGHT/VCN_bin2_tiffs/"+tifs[n],"/media/curie/MOUSELIGHT/VCN_bin2_tiffs_shifted/"+tifs[n])
