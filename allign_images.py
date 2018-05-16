@@ -18,12 +18,12 @@ tifs.sort()
 
 
 
-for n in range(1100,len(tifs)):
+for n in range(1154,len(tifs)):
     if(n>1154):
        print("shift")
        im = plt.imread("/media/curie/MOUSELIGHT/VCN_bin2_tiffs/"+tifs[n])
        im = sh.shift(im,"L",98,"D",94)
-       plt.imsave("/media/curie/MOUSELIGHT/VCN_bin2_tiffs_shifted/"+tifs[n]+tifs[n],im)
+       plt.imsave("/media/curie/MOUSELIGHT/VCN_bin2_tiffs_shifted/"+tifs[n],im)
 
     else:
         copyfile("/media/curie/MOUSELIGHT/VCN_bin2_tiffs/"+tifs[n],"/media/curie/MOUSELIGHT/VCN_bin2_tiffs_shifted/"+tifs[n])
